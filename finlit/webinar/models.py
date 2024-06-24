@@ -1,4 +1,16 @@
 from django.db import models
+from django.contrib.auth import get_user_model
+
+
+UserModel = get_user_model()
+
+
+class WebinarTag(models.Model):
+    name = models.CharField(max_length=256, unique=True, db_index=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.name}'
 
 
 class Webinar(models.Model):
@@ -19,7 +31,9 @@ class Webinar(models.Model):
     old_price = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True)
     status = models.SmallIntegerField(default=PLANNED, choices=STATUSES)
     description = models.TextField(null=True, blank=True)
+    speaker = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='webinars')
     date = models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField(to=WebinarTag)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -29,19 +43,3 @@ class Webinar(models.Model):
 
     def __str__(self):
         return f'{self.name}|{self.status}'
-
-    @property
-    def tags(self):
-        return self.webinartag_set.all()
-
-
-class WebinarTag(models.Model):
-    name = models.CharField(max_length=256, db_index=True)
-    webinar = models.ForeignKey(to=Webinar, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    class Meta:
-        unique_together = "name", "webinar"
-
-    def __str__(self):
-        return f'{self.name}|{self.webinar.name}'
