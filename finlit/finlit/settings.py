@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     'user',
     'webinar',
 ]
@@ -81,6 +83,9 @@ DATABASES = {
         'PASSWORD': 'postgres',
         'HOST': "db",
         'PORT': 5432,
+        'TEST': {
+            'NAME': 'test_database',
+        },
     }
 }
 
