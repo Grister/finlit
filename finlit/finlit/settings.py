@@ -40,6 +40,9 @@ INSTALLED_APPS = [
 
     'user',
     'webinar',
+    'course',
+    'counseling',
+    'career',
 ]
 
 MIDDLEWARE = [
