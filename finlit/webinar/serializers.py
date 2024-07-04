@@ -10,8 +10,13 @@ class WebinarTagSerializer(serializers.ModelSerializer):
 
 
 class WebinarReadSerializer(serializers.ModelSerializer):
-    tags = serializers.SlugRelatedField(slug_field='name', queryset=models.WebinarTag.objects.all(), many=True)
+    tags = serializers.SlugRelatedField(
+        slug_field='name',
+        queryset=models.WebinarTag.objects.all(),
+        many=True
+    )
     speaker = serializers.StringRelatedField()
+    status = serializers.CharField(source='get_status_display', read_only=True)
 
     class Meta:
         model = models.Webinar
@@ -22,4 +27,3 @@ class WebinarWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Webinar
         fields = "__all__"
-

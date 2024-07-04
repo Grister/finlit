@@ -24,5 +24,5 @@ urlpatterns = [
     # path('api/', include('career.urls', namespace='career')),
     # path('api/', include('course.urls', namespace='course')),
     # path('api/', include('counseling.urls', namespace='counseling')),
-    # path('api/', include('order.urls', namespace='order')),
+    path('api/', include('order.urls', namespace='order')),
 ]
