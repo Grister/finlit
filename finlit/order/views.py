@@ -11,10 +11,10 @@ class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = serializer.OrderSerializer
 
     def get_permissions(self):
-        if self.action in ['list', 'retrieve', 'destroy', 'partial_update']:
-            self.permission_classes = [IsAdminUser]
-        elif self.action == 'create':
+        if self.request.method == 'POST':
             self.permission_classes = [IsAuthenticated]
+        else:
+            self.permission_classes = [IsAdminUser]
         return super().get_permissions()
 
     def partial_update(self, request, *args, **kwargs):

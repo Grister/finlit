@@ -6,7 +6,7 @@ from .views import OrderViewSet
 app_name = 'user'
 
 router = SimpleRouter()
-router.register('order', OrderViewSet)
+router.register('order', OrderViewSet, basename='order')
 
 urlpatterns = [
     path('', include(router.urls)),
